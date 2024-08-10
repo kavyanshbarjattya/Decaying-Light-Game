@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform groundCheck;
 
     Rigidbody2D rb;
-    bool isGrounded;
+    bool isGrounded, isMoving;
     bool jumpRequest, downRequest;
     float moveInput;
 
@@ -55,6 +55,15 @@ public class PlayerMovement : MonoBehaviour
     private void Horizontal_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         moveInput = obj.ReadValue<float>();
+    }
+
+    public bool IsPlayerMoving()
+    {
+        if(Mathf.Abs(rb.velocity.x) < .1f && Mathf.Abs(rb.velocity.y) < .1f)
+        {
+            return true;
+        }
+        return false;
     }
 
     void Update()

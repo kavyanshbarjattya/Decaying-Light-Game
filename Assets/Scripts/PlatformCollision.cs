@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 public class PlatformCollision : MonoBehaviour
 {
-    [SerializeField] GameObject oneWayCollider;
+    GameObject oneWayCollider;
     Collider2D playerCollider;
 
     private void Awake()

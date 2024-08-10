@@ -10,6 +10,15 @@ public class AutoFire : MonoBehaviour
     private float nextTimeToFire = 0f;
     private GameObject nearestEnemy;
 
+
+    PlayerMovement movement;
+
+
+    private void Awake()
+    {
+        movement = GetComponent<PlayerMovement>();
+    }
+
     void Update()
     {
 
@@ -32,6 +41,9 @@ public class AutoFire : MonoBehaviour
            
             if (Time.time >= nextTimeToFire)
             {
+                if (!movement.IsPlayerMoving())
+                    return;
+
                 Shoot(direction.normalized); 
                 nextTimeToFire = Time.time + 1f / fireRate;
             }
