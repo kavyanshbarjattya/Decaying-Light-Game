@@ -5,7 +5,7 @@ public class PlayerHealth : MonoBehaviour
 {
 
     [SerializeField] AudioClip damageClip, death;
-
+    [SerializeField] GameObject _gameLose;
     AudioSource source;
     public float _health;
     public float _currentHealth;
@@ -42,7 +42,8 @@ public class PlayerHealth : MonoBehaviour
     IEnumerator DelayForGameLoose()
     {
         source.PlayOneShot(death);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2f); 
+        _gameLose.SetActive(true);
         gameObject.SetActive(false);
     }
 }

@@ -7,9 +7,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _gameLooseScreen;
 
     [SerializeField] float _gameTimer;
+    public static GameManager instance;
+    public float timer()
+    {
+        return counter;
+    }
     float counter;
 
     bool _isGameStarted;
+
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         _playerTrans.position = _gameStartPoint.position;
@@ -36,7 +46,6 @@ public class GameManager : MonoBehaviour
         if (counter < 0)
         {
             _gameLooseScreen.SetActive(true);
-            Time.timeScale = 0.5f;
         }
 
         float progress = counter / _gameTimer;
