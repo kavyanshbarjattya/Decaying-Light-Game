@@ -42,9 +42,5 @@ public class GameManager : MonoBehaviour
 
         float progress = counter / _gameTimer;
 
-        Debug.Log(progress);
-
-        MusicLerp.instance.Progress(progress);
-
     }
 }

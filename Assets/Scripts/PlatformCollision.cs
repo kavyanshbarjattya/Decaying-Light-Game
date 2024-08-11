@@ -20,7 +20,7 @@ public class PlatformCollision : MonoBehaviour
 
     IEnumerator IgnoreCollisions()
     {
-        BoxCollider2D collider2D = oneWayCollider.GetComponent<BoxCollider2D>();
+        Collider2D collider2D = oneWayCollider.GetComponent<Collider2D>();
 
         Physics2D.IgnoreCollision(playerCollider, collider2D);
         yield return new WaitForSeconds(.25f);

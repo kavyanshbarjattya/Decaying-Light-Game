@@ -4,10 +4,11 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
 
-    [SerializeField] AudioClip damage, death;
+    [SerializeField] AudioClip damageClip, death;
 
     AudioSource source;
     public float _health;
+    public float _currentHealth;
     PlayerAnimations _playeranim;
 
     private void Awake()
@@ -16,24 +17,32 @@ public class PlayerHealth : MonoBehaviour
         _playeranim = GetComponent<PlayerAnimations>();
     }
 
+    private void Start()
+    {
+        _currentHealth = _health;
+    }
+
     private void Update()
     {
-        if(_health <= 0)
+        if(_currentHealth <= 0)
         {
            _playeranim.Dead();
             StartCoroutine(DelayForGameLoose());
         }
+
+        MusicLerp.instance.Progress((_currentHealth / _health) / 2);
+        PostProcessCntroller.instance.UpdatePostProcessVolume(_currentHealth / _health);
     }
     public void PlayerDamage(float damage)
     {
-        source.PlayOneShot(this.damage);
-        _health -= damage;
+        source.PlayOneShot(damageClip);
+        _currentHealth -= damage;
         _playeranim.Hurt();
     }
     IEnumerator DelayForGameLoose()
     {
         source.PlayOneShot(death);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         gameObject.SetActive(false);
     }
 }

@@ -37,5 +37,9 @@ public class BulletMove : MonoBehaviour
             hitInfo.GetComponent<EnemyHealth>().TakeDamage(damage);
             Destroy(gameObject);
         }
+        else if(hitInfo.CompareTag("Ground"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
