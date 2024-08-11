@@ -27,4 +27,8 @@ public class EnemyAnim : MonoBehaviour
         isDead = true;
         animator.SetTrigger("dead");
     }
+    public void Idle()
+    {
+        animator.SetTrigger("Idle");
+    }
 }

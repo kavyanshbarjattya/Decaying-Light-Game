@@ -40,6 +40,10 @@ public class EnemyAI : MonoBehaviour
         {
             anim.Attack();
         }
+        else if (!hit && _playerhealth._health <= 0)
+        {
+            anim.Idle();
+        }
         else
         {
             Movement();
