@@ -38,24 +38,24 @@ public class EnemyAI : MonoBehaviour
     void Movement()
     {
         horizontalDir = player.position.x - transform.position.x;
-        horizontalDir = Mathf.Clamp(horizontalDir, -1, 1);
+        float horizontalDirClamped = Mathf.Clamp(horizontalDir, -1, 1);
 
-        if(horizontalDir < 0)
+        if(horizontalDirClamped < 0)
         {
             transform.localScale = new Vector2(-1, 1);
         }
-        else if(horizontalDir > 0)
+        else if(horizontalDirClamped > 0)
         {
             transform.localScale = new Vector2(1, 1);
         }
 
-        transform.Translate(horizontalDir * Vector2.right * moveSpeed * Time.deltaTime);
+        transform.Translate(horizontalDirClamped * Vector2.right * moveSpeed * Time.deltaTime);
     }
 
     void Jump()
     {
         verticalDir = player.position.y - transform.position.y;
-        if(verticalDir >= jumpThreshold && Mathf.Abs(horizontalDir) < 1 && jumpReq)
+        if(verticalDir >= jumpThreshold && Mathf.Abs(horizontalDir) < 3 && jumpReq)
         {
             Invoke("DelayedJump", .5f);
             jumpReq = false;
