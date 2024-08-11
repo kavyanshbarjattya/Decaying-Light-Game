@@ -4,6 +4,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] float moveSpeed = 5;
     [SerializeField] float jumpForce = 12;
     [SerializeField] float jumpThreshold = 1.5f;
+    [SerializeField] float _attackingRange;
+    [SerializeField] LayerMask _playerMask;
 
     bool jumpReq;
     float horizontalDir;
@@ -11,14 +13,17 @@ public class EnemyAI : MonoBehaviour
 
     EnemyAnim anim;
 
+    PlayerHealth _playerhealth;
     Rigidbody2D rb;
     Transform player;
+   
 
     private void Awake()
     {
         anim = GetComponentInChildren<EnemyAnim>();
         rb = GetComponent<Rigidbody2D>();
         player = FindObjectOfType<PlayerMovement>().transform;
+        _playerhealth = FindObjectOfType<PlayerHealth>();
     }
 
     private void Start()
@@ -29,11 +34,19 @@ public class EnemyAI : MonoBehaviour
     private void Update()
     {
         if (anim.isDead) return;
+        RaycastHit2D hit;
+        hit = Physics2D.Raycast(transform.position, transform.forward, _attackingRange , _playerMask);
+        if (hit && _playerhealth._health > 0)
+        {
+            anim.Attack();
+        }
+        else
+        {
+            Movement();
+            Jump();
+        }
 
 
-        Movement();
-
-        Jump();
     }
     void Movement()
     {
@@ -67,6 +80,7 @@ public class EnemyAI : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         jumpReq = true;
     }
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
