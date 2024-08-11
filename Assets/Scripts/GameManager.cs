@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] Transform _gameStartPoint , _gameEndPoint;
+    [SerializeField] Transform _gameStartPoint;
     [SerializeField] Transform _playerTrans;
+    [SerializeField] GameObject _gameLooseScreen;
 
     [SerializeField] float _gameTimer;
     float counter;
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
         _playerTrans.position = _gameStartPoint.position;
         _isGameStarted = true;
         counter = _gameTimer;
+        _gameLooseScreen.SetActive(false);
     }
 
    
@@ -30,14 +32,11 @@ public class GameManager : MonoBehaviour
                 _isGameStarted = false;
             }
         }
-        
-        if(_playerTrans.position == _gameEndPoint.position && counter > 0)
+
+        if (counter < 0)
         {
-            // game win screen
-        }
-        else if(_playerTrans.position != _gameEndPoint.position && counter < 0)
-        {
-            // game loose screen
+            _gameLooseScreen.SetActive(true);
+            Time.timeScale = 0.5f;
         }
 
         float progress = counter / _gameTimer;
