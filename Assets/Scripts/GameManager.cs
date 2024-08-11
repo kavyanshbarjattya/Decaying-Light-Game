@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,12 +6,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] Transform _playerTrans;
 
     [SerializeField] float _gameTimer;
+    float counter;
 
     bool _isGameStarted;
     void Start()
     {
         _playerTrans.position = _gameStartPoint.position;
         _isGameStarted = true;
+        counter = _gameTimer;
     }
 
    
@@ -21,9 +21,9 @@ public class GameManager : MonoBehaviour
     {
         if (_isGameStarted)
         {
-            if (_gameTimer > 0)
+            if (counter > 0)
             {
-                _gameTimer -= Time.deltaTime;
+                counter -= Time.deltaTime;
             }
             else
             {
@@ -31,14 +31,20 @@ public class GameManager : MonoBehaviour
             }
         }
         
-        if(_playerTrans.position == _gameEndPoint.position && _gameTimer > 0)
+        if(_playerTrans.position == _gameEndPoint.position && counter > 0)
         {
             // game win screen
         }
-        else if(_playerTrans.position != _gameEndPoint.position && _gameTimer < 0)
+        else if(_playerTrans.position != _gameEndPoint.position && counter < 0)
         {
             // game loose screen
         }
-        Debug.Log(_gameTimer);
+
+        float progress = counter / _gameTimer;
+
+        Debug.Log(progress);
+
+        MusicLerp.instance.Progress(progress);
+
     }
 }
