@@ -67,4 +67,12 @@ public class EnemyAI : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         jumpReq = true;
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Ground"))
+        {
+            Invoke("DelayedJump", 0);
+        }
+    }
 }
