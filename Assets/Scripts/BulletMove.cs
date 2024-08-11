@@ -32,15 +32,9 @@ public class BulletMove : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        // Check if the bullet hits an enemy
         if (hitInfo.CompareTag("Enemy"))
         {
-            // Deal damage to the enemy
-            EnemyHealth enemy = hitInfo.GetComponent<EnemyHealth>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damage);
-            }
+            hitInfo.GetComponent<EnemyHealth>().TakeDamage(damage);
             Destroy(gameObject);
         }
     }

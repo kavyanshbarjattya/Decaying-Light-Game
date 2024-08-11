@@ -14,11 +14,12 @@ public class PlayerMovement : MonoBehaviour
     float moveInput;
 
     PlayerControls inputActions;
-
+    PlayerAnimations anim;
     PlatformCollision platform;
 
     void Awake()
     {
+        anim = GetComponent<PlayerAnimations>();
         inputActions = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
         platform = GetComponent<PlatformCollision>();
@@ -70,12 +71,24 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
 
+        if(moveInput < 0)
+        {
+            transform.localScale = new Vector3(-1, 1);
+        }
+        else if(moveInput > 0)
+        {
+            transform.localScale = new Vector3(1, 1);
+        }
+
+
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
+        anim.isRunning = !IsPlayerMoving();
 
         if (jumpRequest && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            anim.Jump();
             jumpRequest = false;
         }
 

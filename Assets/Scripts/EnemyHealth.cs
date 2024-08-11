@@ -1,19 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] float _health;
+    [SerializeField] int _health;
+
+    EnemyAnim anim;
+
+    private void Awake()
+    {
+        anim = GetComponent<EnemyAnim>();
+    }
     private void Update()
     {
-        if(_health <= 0)
+        if (_health <= 0)
         {
-            Destroy(gameObject);
+            anim.Dead();
+            Destroy(gameObject, 1f);
         }
     }
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
+        anim.Hurt();
         _health -= damage;
     }
 }

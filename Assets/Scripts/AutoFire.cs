@@ -10,12 +10,13 @@ public class AutoFire : MonoBehaviour
     private float nextTimeToFire = 0f;
     private GameObject nearestEnemy;
 
-
+    PlayerAnimations anim;
     PlayerMovement movement;
 
 
     private void Awake()
     {
+        anim = GetComponent<PlayerAnimations>();
         movement = GetComponent<PlayerMovement>();
     }
 
@@ -44,6 +45,7 @@ public class AutoFire : MonoBehaviour
                 if (!movement.IsPlayerMoving())
                     return;
 
+                anim.Attack();
                 Shoot(direction.normalized); 
                 nextTimeToFire = Time.time + 1f / fireRate;
             }
