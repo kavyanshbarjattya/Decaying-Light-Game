@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f2211f3fdf1bc4abcf8587ccb585b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 5
+  _health: 10
   hurtClips:
   - {fileID: 8300000, guid: dfc2c245a85499a4fadfc9a08826770a, type: 3}
   - {fileID: 8300000, guid: ed576ff17c8fe1e4fbbac9592d8edc4e, type: 3}
